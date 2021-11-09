@@ -1,0 +1,31 @@
+<h1 class="headerer">
+  <%= link_to 'Assign shift', root_path %>
+</h1>
+<body>
+<h2>Plan <%= @pa %></h2>
+Start Time <%= datetime_select("start_time", :start_time, options={order: [:day, :month, :year, :hour, :minute]}) %><br>
+Stop Time <%= datetime_select("stop_time", :stop_time, options={order: [:day, :month, :year, :hour, :minute]}) %><br>
+<%= check_box_tag :checkbox, 'yes', true %> Select All
+OT <%= text_field_tag :ot %>
+<%= submit_tag("Submit") %><br>
+<table>
+  <tr>
+    <th>&nbsp;</th>
+    <th>ชื่อ-นามสกุล</th>
+    <th>เวลาเข้างาน</th>
+    <th>เวลาออกงาน</th>
+    <th>OT Plane</th>
+  </tr>
+  <% @employee.each do |users| %>
+  <tr>
+    <td><%= check_box_tag :check_each %></td>
+    <td>
+	<%= users.name.to_s+" "+users.surname.to_s %>
+    </td>
+    <td>time in</td>
+    <td>time out</td>
+    <td>ot</td>
+  </tr>
+  <% end %>
+</table>
+</body>
