@@ -2,12 +2,14 @@
   <%= link_to 'Assign shift', root_path %>
 </h1>
 <body>
-<h2>Plan <%= @pa %></h2>
-Start Time <%= datetime_select("start_time", :start_time, options={order: [:day, :month, :year, :hour, :minute]}) %><br>
-Stop Time <%= datetime_select("stop_time", :stop_time, options={order: [:day, :month, :year, :hour, :minute]}) %><br>
-<%= check_box_tag :checkbox, 'yes', true %> Select All
-OT <%= text_field_tag :ot %>
-<%= submit_tag("Submit") %><br>
+<h2>Plan แผนก<%= @dep %></h2>
+Date <%= date_select(:emp, :date, options={order: [:day, :month, :year]}) %><br>
+Start Time <%= time_select(:emp, :start_time, options={order: [:hour, :minute]}) %><br>
+Stop Time <%= time_select(:emp, :stop_time, options={order: [:hour, :minute]}) %><br>
+<%= check_box_tag  "check_all", 1, true %> Select All
+OT <%= text_field :emp, :ot %>
+<%= submit_tag("Submit") %>
+
 <table>
   <tr>
     <th>&nbsp;</th>
@@ -18,7 +20,7 @@ OT <%= text_field_tag :ot %>
   </tr>
   <% @employee.each do |users| %>
   <tr>
-    <td><%= check_box_tag :check_each %></td>
+    <td><%= check_box_tag :users_select %></td>
     <td>
 	<%= users.name.to_s+" "+users.surname.to_s %>
     </td>

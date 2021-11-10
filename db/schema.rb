@@ -13,10 +13,10 @@
 ActiveRecord::Schema.define(version: 2021_11_09_091737) do
 
   create_table "plans", force: :cascade do |t|
-    t.date "date"
-    t.string "in"
-    t.string "out"
-    t.integer "ot"
+    t.datetime "date"
+    t.datetime "time_in"
+    t.datetime "time_out"
+    t.integer "OT"
     t.integer "user_id"
     t.index ["user_id"], name: "index_plans_on_user_id"
   end
