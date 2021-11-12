@@ -4,7 +4,6 @@
 <body>
   <h2>Plan แผนก <%= @dep %></h2>
   <%= form_tag(edit_dashboard_path(@dep), method: 'get') do %>
-
     Date <%= date_select(:emp, :date) %><br>
     Time <%= time_select(:emp, :time_in, options={order: [:hour, :minute]}) %> - 
     <%= time_select(:emp, :time_out, options={order: [:hour, :minute]}) %><br>
