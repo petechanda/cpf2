@@ -9,47 +9,31 @@ class DashboardsController < ApplicationController
 	end
 
 	def time_plan
-		@assign_time = params[:emp]
-		@uID_list = params[:select_user]
-		#puts @uID_list.class
-		if @uID_list
-		@uID_list.each do |uID|
-			user = User.find(uID.to_i)
-			@assign = user.plans.new(@assign_time)
-			#@assign_time[:user_id] = uID.to_i
-			#puts @assign_time
-			#puts ""
-			@assign = Plan.new(@assign_time)
-		end
-		end
+		params.require(:emp).permit(:date, :time_in, :time_out, :OT)
 	end
 
 	def edit
 		@dep = params[:id]
 		@users = User.where(:department1 => @dep)
 		@employee = @users.select{|user| user.position=="employee"}
-
-		@assign_time = params[:emp]
 		@uID_list = params[:select_user]
-		#puts @uID_list.class
+
 		if @uID_list
-		@uID_list.each do |uID|
-			user = User.find(uID.to_i)
-			#@assign = user.Plan.new(@assign_time)
-			@assign_time[:user_id] = uID.to_i
-			puts @assign_time
-			puts ""
-			#@assign = Plan.new(@assign_time)
-		end
+			@uID_list.each do |uID|
+				@assign = Plan.create(time_plan)
+				user = User.find(uID.to_i)
+				user.plans << @assign
+			end
+			if @assign.save
+				#if creation is successful, show up 'successful' message
+				flash[:notice] = "successful"
+				redirect_to edit_dashboard_path(@dep)
+			#else
+				#render 'edit'
+			end
 		end
 
-		#if @assign.save
-			#if creation is successful, show up 'successful' message
-		#	flash[:notice] = "successful"
-		#	redirect_to edit_dashboard_path(@dep)
-		#else
-			#render 'edit'
-		#end
+		
 		
 	end
 end
